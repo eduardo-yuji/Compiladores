@@ -69,14 +69,14 @@ public class AnalisadorLexico {
 				return(new Token(caracter, TipoToken.FimDelim, 0));
 			case "<<":
 				return(new Token(caracter, TipoToken.Atrib, 0));
-			case caracter.matches("[A-Z][A-Z]|[a-z]|[0-9]*"):
-				return(new Token(caracter, TipoToken.Var, 0));
-			case caracter.matches("[0-9+]"):
-				return(new Token(caracter, TipoToken.NumInt, 0));
-			case caracter.matches("[0-9]?."):
-				return(new Token(caracter, TipoToken.NumReal, 0));
+			//case caracter.matches("[A-Z][A-Z]|[a-z]|[0-9]*"):
+				//return(new Token(caracter, TipoToken.Var, 0));
+			//case caracter.matches("[0-9+]"):
+				//return(new Token(caracter, TipoToken.NumInt, 0));
+			//case caracter.matches("[0-9]?."):
+				//return(new Token(caracter, TipoToken.NumReal, 0));
 			//case caracter.matches(""):
-			//	return(new Token(caracter, TipoToken.Cadeia, 0));
+				//return(new Token(caracter, TipoToken.Cadeia, 0));
 			case "(":
 				return(new Token(caracter, TipoToken.AbrePar, 0));
 			case ")":

@@ -1,0 +1,43 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+
+        for (int i = 0; i < args.length; i++) {
+            String fileName = args[i];
+            System.out.println("\n\n ----- Arquivo " + i + " ----" + "\n\n");
+
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(fileName));
+                StringBuilder input = new StringBuilder();
+                String linha;
+                int linhaNumero = 1;
+
+                while ((linha = reader.readLine()) != null) {
+                    linhaNumero++;
+                    if (linha.trim().startsWith("#")) {
+                        linha = linha.replaceAll(linha, "\n");
+                        input.append(linha);
+                        //linha = "\n";
+                        continue; // Ignore comments
+                    }
+                    input.append(linha).append("\n");
+                }
+
+                AnalisadorLexico lexer = new AnalisadorLexico(input.toString());
+                List<Token> tokens = lexer.tokenize();
+
+                for (Token token : tokens) {
+                    System.out.println(token + " ");
+                }
+
+                reader.close();
+            } catch (IOException e) {
+                System.out.println("Erro ao ler o arquivo: " + e.getMessage());
+            }
+        }
+    }
+}

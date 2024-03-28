@@ -14,7 +14,7 @@ public class LeitorArq {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public int lerProxCaracter() {
 		int c = -1;
 		try {
@@ -23,7 +23,7 @@ public class LeitorArq {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return(c);
+		return (c);
 	}
-	
+
 }
