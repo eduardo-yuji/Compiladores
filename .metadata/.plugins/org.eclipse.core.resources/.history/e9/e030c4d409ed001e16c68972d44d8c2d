@@ -1,0 +1,74 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+class AnalisadorLexico {
+	private String input;
+	private int pos;
+	private int linhaNumero;
+
+	public AnalisadorLexico(String input) {
+		this.input = input;
+		this.pos = 0;
+		this.linhaNumero = 1;
+	}
+
+	public List<Token> tokenize() {
+		List<Token> tokens = new ArrayList<>();
+		while (pos < input.length()) {
+			char leitor = input.charAt(pos);
+			switch (leitor) {
+				case '\n': 
+					pos++;
+					linhaNumero++;
+				case (Character.isWhitespace(leitor)):
+					pos++;
+				case "[":
+					tokens.add(new Token(TipoToken.IniDelim, "[", linhaNumero));
+					pos++;
+					
+			default:
+			}
+		}
+		tokens.add(new Token(TipoToken.EOF, "", linhaNumero));
+		return tokens;
+	}
+
+	private String readWord() {
+		StringBuilder builder = new StringBuilder();
+		while (pos < input.length()
+				&& (Character.isLetter(input.charAt(pos)) || Character.isDigit(input.charAt(pos)))) {
+			builder.append(input.charAt(pos));
+			pos++;
+		}
+		return builder.toString();
+	}
+
+	private String lerNumero() {
+		StringBuilder builder = new StringBuilder();
+		while (pos < input.length()
+				&& (Character.isDigit(input.charAt(pos)) || input.charAt(pos) == '.')) {
+			builder.append(input.charAt(pos));
+			pos++;
+		}
+		return builder.toString();
+	}
+
+	private TipoToken getPalavraReservada(String lexema) {
+		HashMap<String, TipoToken> keywords = new HashMap<>();
+		keywords.put("dec", TipoToken.PCDec);
+		keywords.put("prog", TipoToken.PCProg);
+		keywords.put("integer", TipoToken.PCInt);
+		keywords.put("float", TipoToken.PCReal);
+		keywords.put("read", TipoToken.PCLer);
+		keywords.put("print", TipoToken.PCImprimir);
+		keywords.put("if", TipoToken.PCSe);
+		keywords.put("else", TipoToken.PCSenao);
+		keywords.put("then", TipoToken.PCEntao);
+		keywords.put("while", TipoToken.PCEnqto);
+		keywords.put("start", TipoToken.PCIni);
+		keywords.put("end", TipoToken.PCFim);
+
+		return keywords.get(lexema);
+	}
+}

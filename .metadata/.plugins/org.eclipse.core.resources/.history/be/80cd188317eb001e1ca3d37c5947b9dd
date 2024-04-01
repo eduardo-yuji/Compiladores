@@ -1,0 +1,20 @@
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+public class Leitor {
+
+	public Leitor(String file) {
+		Scanner reader = new Scanner(file);
+		while (reader.hasNextLine()) {
+			String data = reader.nextLine();
+
+			StringTokenizer st = new StringTokenizer(data, "\n");
+
+			while (st.hasMoreTokens()) {
+				System.out.println(st.nextToken());
+			}
+		}
+		reader.close();
+	}
+}
