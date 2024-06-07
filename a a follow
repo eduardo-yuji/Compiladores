@@ -1,0 +1,20 @@
+s -> ABCD
+A -> b|E
+B -> cS|E
+C -> dA
+De -> e|E
+
+
+aa follow
+a follow you
+first(S) = {b,c,d}
+first(A) = {b,E}
+first(B) = {c,E}
+first(C) = {d}
+first(D) = {e,E}
+
+aa follow(S) = {$} U aa follow(B)  ->  {$,d}
+aa follow(A) = {c} U aa follow(B)  ->  {c,d}
+aa follow(B) = {d}
+aa follow(C) = {e} U aa follow(D)  ->  {e,$,d}
+aa follow(D) = {$,d}

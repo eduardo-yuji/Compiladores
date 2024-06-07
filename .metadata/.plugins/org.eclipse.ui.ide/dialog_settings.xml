@@ -6,9 +6,13 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+<<<<<<< HEAD
 			<item value="C:\Users\Eduardo Yuji\OneDrive\Documentos\Faculdade\8° Período\Compiladores\AP 1"/>
 			<item value="C:\Users\Eduardo Yuji\OneDrive\Documentos\Faculdade\8° Período\Compiladores\AP 1\Parte 1"/>
 			<item value="C:\Users\Eduardo Yuji\OneDrive\Documentos\Faculdade\8° Período\Compiladores\AP 1\AnalisadorLex"/>
+=======
+			<item value="/media/a2320606/home/Compiladores/ANTLR"/>
+>>>>>>> refs/remotes/origin/main
 			<item value="C:\Users\Eduardo Yuji\OneDrive\Documentos\Faculdade\8° Período\Compiladores"/>
 		</list>
 		<section name="SmartImportWizard.dialogBounds">
