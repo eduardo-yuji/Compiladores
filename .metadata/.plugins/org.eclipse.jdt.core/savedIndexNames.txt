@@ -1,7 +1,4 @@
 INDEX VERSION 1.134+C:\Users\Eduardo Yuji\OneDrive\Documentos\Faculdade\8° Período\Compiladores\.metadata\.plugins\org.eclipse.jdt.core
-2928101403.index
 3634492651.index
-735705145.index
-1888875169.index
 1865797976.index
-573179247.index
+931601763.index

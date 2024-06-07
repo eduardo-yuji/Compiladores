@@ -13,6 +13,6 @@
     <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_CLASSPATH_ONLY_JAR" value="false"/>
     <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="Main"/>
     <stringAttribute key="org.eclipse.jdt.launching.MODULE_NAME" value="AnalisadorLex"/>
-    <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="programa10.gyh programa11.gyh"/>
+    <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="programa1.gyh"/>
     <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="AnalisadorLex"/>
 </launchConfiguration>

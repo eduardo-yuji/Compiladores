@@ -6,6 +6,9 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\Eduardo Yuji\OneDrive\Documentos\Faculdade\8° Período\Compiladores\AP 1"/>
+			<item value="C:\Users\Eduardo Yuji\OneDrive\Documentos\Faculdade\8° Período\Compiladores\AP 1\Parte 1"/>
+			<item value="C:\Users\Eduardo Yuji\OneDrive\Documentos\Faculdade\8° Período\Compiladores\AP 1\AnalisadorLex"/>
 			<item value="C:\Users\Eduardo Yuji\OneDrive\Documentos\Faculdade\8° Período\Compiladores"/>
 		</list>
 		<section name="SmartImportWizard.dialogBounds">
