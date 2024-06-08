@@ -1,11 +1,6 @@
-<<<<<<< HEAD
 INDEX VERSION 1.134+C:\Users\Eduardo Yuji\OneDrive\Documentos\Faculdade\8° Período\Compiladores\.metadata\.plugins\org.eclipse.jdt.core
+1724547429.index
+50905887.index
 3634492651.index
 1865797976.index
-931601763.index
-=======
-INDEX VERSION 1.134+/media/a2320606/home/Compiladores/.metadata/.plugins/org.eclipse.jdt.core
-2419267527.index
-1865797976.index
-3190866726.index
->>>>>>> refs/remotes/origin/main
+1926993221.index

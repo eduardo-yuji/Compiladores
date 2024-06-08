@@ -6,6 +6,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/Users/Eduardo Yuji/OneDrive/Documentos/Faculdade/8° Período/Compiladores/ANTLR/antlr-4.7.2-complete.jar"/>
 	<classpathentry kind="lib" path="antlr-4.7.2-complete.jar">
 		<attributes>
 			<attribute name="module" value="true"/>

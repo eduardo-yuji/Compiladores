@@ -6,7 +6,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Token;
 
-public class Main {
+public class main {
 
 	public static void main(String[] args) throws IOException {
 		CharStream fromFileName = CharStreams.fromFileName("programa1.gyh");
