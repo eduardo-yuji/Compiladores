@@ -5,38 +5,44 @@ grammar GyhRepaginadoLanguage;
 }
 
 @members{
-	private String _nomeVar; 
-	private String _tipoVar;
-	private String _valorVar;
-	
-	private Simbolo _simboloVar;
-	
-	private String _varCondicao
-	//======
-	private GeraCodigo prog = new GeraCodigo(); 
-	
-	private ArrayList<Comando> listCmd = new ArrayList<Comando>(); 
-	//======
-	
-	private TabelaSimbolo _tabelaSimbolo = new TabelaSimbolo();
-	
-	public void imprimeTabelaSimbolo(TabelaSimbolo tabela){
-		for(Simbolo s: tabela.getTabela().values()){
-			System.out.println(s.toString());
-		}
-	}
+    private String _nomeVar; 
+    private String _tipoVar;
+    private String _valorVar;
+    private Simbolo _simboloVar;
+    private String _varCondicao;
+    private String _varExp;
+
+    private GeraCodigo prog = new GeraCodigo(); 
+    private ArrayList<Comando> listCmd = new ArrayList<Comando>(); 
+    private TabelaSimbolo _tabelaSimbolo = new TabelaSimbolo();
+    
+    public void imprimeTabelaSimbolo(TabelaSimbolo tabela) {
+        for (Simbolo s : tabela.getTabela().values()) {
+            System.out.println(s.toString());
+        }
+    }
+
+    public void imprimeComando(List<Comando> comandos) {
+        for (Comando c : comandos) {
+            System.out.println(c.toString());
+        }
+    }
+
 }
 
-//Gramatica
+//------------------------------------------------Gramatica------------------------------------------------
 
-programa: IniDelim PCDec FimDelim listaDeclaracoes 
-		  IniDelim PCProg FimDelim listaComandos 
-		  { prog.setTabela(_tabelaSimbolo);
-		  	prog.setComando(listCmd);
-		    prog.geradorCodigo();
-		    imprimeTabelaSimbolo(_tabelaSimbolo); System.out.println("\nAnalise Sintatica finalizada com sucesso! "); };
+programa: IniDelim PCDec FimDelim listaDeclaracoes IniDelim PCProg FimDelim listaComandos 
+          { 
+              prog.setTabela(_tabelaSimbolo);
+              prog.setComando(listCmd);
+              prog.geradorCodigo();
+              imprimeTabelaSimbolo(_tabelaSimbolo); 
+              imprimeComando(listCmd);
+              System.out.println("\nAnálise Sintática finalizada com sucesso! "); 
+          };
 
-listaDeclaracoes: declaracao (listaDeclaracoes)?;
+listaDeclaracoes: (declaracao)+;
 
 declaracao: Var IniDelim (PCInt | PCReal) FimDelim
 			{ _nomeVar= _input.LT(-4).getText();
@@ -52,37 +58,34 @@ declaracao: Var IniDelim (PCInt | PCReal) FimDelim
 			  }	  
 			};//declaracao de variáveis
 
-expressaoAritmetica: termoAritmetico 	 
-		('+' termoAritmetico )?; 
+expressaoAritmetica: termoAritmetico (('+' | '-') termoAritmetico)*; 
 
-termoAritmetico: fatorAritmetico 
-				('*' fatorAritmetico  )?; //arrumar isso aqui!!!!
+termoAritmetico: fatorAritmetico (('*' | '/') fatorAritmetico)*;
 
-fatorAritmetico: NumInt| NumReal | Var; //arrumar isso aqui!!!!; 
+fatorAritmetico: NumInt | NumReal | Var | AbrePar expressaoAritmetica FechaPar;
+                //{
+                  //_nomeVar= _input.LT(-1).getText();
+                //};
 
-expressaoRelacional: (termoRelacional operadorBooleano {_varCondicao+=" "+_input.LT(-1).getText()+" ";})* termoRelacional; // MEIO TORTINHO
+expressaoRelacional: termoRelacional ((OpBoolOu | OpBoolE) termoRelacional)*;
 
-termoRelacional: expressaoAritmetica    {_varCondicao+=_varExp; _varExp="";}
-				 OpRel                  {_varCondicao+=_input.LT(-1).getText();}
-				 expressaoAritmetica    {_varCondicao+=_varExp; _varExp="";} 
-				 | 
-				 AbrePar                {_varCondicao+=" ( ";}
-				 expressaoRelacional 
-				 FechaPar               {_varCondicao+=" ) ";};
+termoRelacional: expressaoAritmetica OpRel expressaoAritmetica | AbrePar expressaoRelacional FechaPar;
 
+listaComandos: (comando)+;
 
-operadorBooleano: 'or'| 'and';
+comando: comandoAtribuicao | comandoEntrada | comandoSaida | comandoCondicao | comandoRepeticao | subAlgoritmo;
 
-listaComandos: comando (listaComandos)?;
-
-comando: comandoAtribuicao 
-       | comandoEntrada 
-       | comandoSaida 
-       | comandoCondicao 
-       | comandoRepeticao 
-       | subAlgoritmo;
-
-comandoAtribuicao: Var Atrib expressaoAritmetica;
+comandoAtribuicao: Var Atrib expressaoAritmetica
+                  {
+                    _nomeVar= _input.LT(-3).getText();
+                    if(_tabelaSimbolo.exists(_nomeVar)==false){
+                      System.out.println("Erro semantico >> Variavel nao declarada: "+_nomeVar);	
+                    } else {
+                      _valorVar = _input.LT(-1).getText();
+                      //ComandoAtrib cmd = new ComandoAtrib(_nomeVar,_valorVar);
+                      //listCmd.add(cmd);
+                    }
+                  };
 
 comandoEntrada: PCLer Var
                 {
@@ -98,26 +101,42 @@ comandoEntrada: PCLer Var
 comandoSaida: PCImprimir (Var | Cadeia)
               {
                 ComandoEscrita cmd = new ComandoEscrita();
-                cmd.setTexto(_input.LT(-1).getText());
+                String texto = _input.LT(-1).getText();
+                if (texto.startsWith("\"") && texto.endsWith("\"")) {
+                    // É uma cadeia de caracteres
+                    cmd.setTexto(texto.substring(1, texto.length() - 1)); // Remove as aspas
+                } else {
+                    // É uma variável
+                    if (!_tabelaSimbolo.exists(texto)) {
+                        System.out.println("Erro semântico >> variável não declarada: " + texto);
+                    } else {
+                        cmd.setTexto(texto);
+                    }
+                }
                 listCmd.add(cmd);
               };
 
-comandoCondicao: PCSe expressaoRelacional PCEntao comando (PCSenao comando)?;
+comandoCondicao: PCSe expressaoRelacional PCEntao comando (PCSenao comando)*;
 
-comandoRepeticao: PCEnqto expressaoRelacional PCEntao comando;
+comandoRepeticao: PCEnqto expressaoRelacional PCEntao listaComandos
+                  ;
 
 subAlgoritmo: PCIni listaComandos PCFim;
 
 
-//==========
+//------------------------------------------------Tokens------------------------------------------------
 
 
 FimDelim: ']';
 IniDelim: '[';
-Atrib: '<<';
-OpRel: '>=' | '<=' | '>' | '<' | '<>' | '==';
 AbrePar: '(';
 FechaPar: ')';
+OpAritMult: '*';
+OpAritDiv: '/';
+OpAritSoma: '+';
+OpAritSub: '-';
+Atrib: '<<';
+OpRel: '>=' | '<=' | '>' | '<' | '<>' | '==';
 OpBoolE: 'and';
 OpBoolOu: 'or';
 PCProg: 'prog';
@@ -135,17 +154,12 @@ PCFim: 'end';
 
 
 Var: [A-Z] ( [0-9] | [a-z] | [A-Z] )*;
-
 Cadeia:  '"' ( [0-9] | [a-z] | [A-Z] | OpRel | Atrib )* '"';
-
 NumInt: [0-9]+;
-
 NumReal: [0-9]+ '.' [0-9]+;
 
-WS: (' ' | '\n' | '\t')->skip;
-
-Comentario: '#' ~('\n')* ->skip;
-
+WS: (' ' | '\n' | '\t') -> skip;
+Comentario: '#' ~('\n')* -> skip;
 
 
 

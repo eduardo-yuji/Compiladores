@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -8,6 +7,6 @@
 	float Parametro2; 
 	int Parametro; 
 	int Fatorial; 
-
+	scanf("%d", &Parametro);
  	return 0;
  }

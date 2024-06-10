@@ -1,6 +1,4 @@
 import java.io.IOException;
-import java.util.HashMap;
-
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -8,25 +6,19 @@ import org.antlr.v4.runtime.Token;
 
 public class Main {
 
-	public static void main(String[] args) throws IOException {
-		CharStream fromFileName = CharStreams.fromFileName("programa1.gyh");
-		CharStream cs = fromFileName;
-		GyhRepaginadoLanguageLexer lexer = new GyhRepaginadoLanguageLexer(cs);
-		CommonTokenStream token = new CommonTokenStream(lexer);
-		GyhRepaginadoLanguageParser parser = new GyhRepaginadoLanguageParser(token);
-		
-		parser.programa();
-		
-		/*
-		Token t;
-		
-		while( (t=lexer.nextToken()).getType() != Token.EOF) {
-			System.out.println("<"+ lexer.VOCABULARY.getSymbolicName(t.getType()) +"," + t.getText()+">");
-			//< Lexema, Padrao>
-		}	
-		*/
-	}
+    public static void main(String[] args) throws IOException {
+        CharStream fromFileName = CharStreams.fromFileName("programa1.gyh");
+        GyhRepaginadoLanguageLexer lexer = new GyhRepaginadoLanguageLexer(fromFileName);
+        CommonTokenStream token = new CommonTokenStream(lexer);
+        GyhRepaginadoLanguageParser parser = new GyhRepaginadoLanguageParser(token);
 
+        parser.programa();
+
+        Token t;
+        while ((t = lexer.nextToken()).getType() != Token.EOF) {
+            System.out.println("<" + lexer.VOCABULARY.getSymbolicName(t.getType()) + "," + t.getText() + ">");
+        }
+    }
 }
 
 

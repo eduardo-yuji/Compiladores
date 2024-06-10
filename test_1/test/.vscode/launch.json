@@ -2,21 +2,14 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "java",
-      "name": "Main",
-      "request": "launch",
-      "mainClass": "Main",
-      "projectName": "ANTLR"
-    },
-    {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Eduardo Yuji/OneDrive/Documentos/Faculdade/8° Período/Compiladores/ANTLR",
-      "program": "c:/Users/Eduardo Yuji/OneDrive/Documentos/Faculdade/8° Período/Compiladores/ANTLR/build/Debug/outDebug",
+      "cwd": "c:/Users/Eduardo Yuji/OneDrive/Documentos/Faculdade/8° Período/Compiladores/test_1/test",
+      "program": "c:/Users/Eduardo Yuji/OneDrive/Documentos/Faculdade/8° Período/Compiladores/test_1/test/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
