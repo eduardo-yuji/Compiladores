@@ -32,7 +32,7 @@ public class GeraCodigo {
         str.append("\n#include <stdbool.h>");
         str.append("\n#include <string.h>");
 
-        str.append("\n\n int main(void){\n");
+        str.append("\n\nint main(void){\n");
 
         for (Simbolo simbolo : tabela.getAll()) {
             if (simbolo.getTipo().equals("float")) {
@@ -43,10 +43,10 @@ public class GeraCodigo {
         }
 
         for (Comando cmd : comando) {
-            str.append("\t"+cmd.geradorCodigo());
+            str.append("\t"+cmd.geradorCodigo()+"\n");
         }
 
-        str.append("\n \treturn 0;\n }");
+        str.append("\n\treturn 0;\n}");
 
         try {
             FileWriter file = new FileWriter(new File("PROGRAMA1.c"));

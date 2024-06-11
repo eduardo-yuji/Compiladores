@@ -1,6 +1,6 @@
 // Generated from GyhRepaginadoLanguage.g4 by ANTLR 4.7.2
 
-	import java.util.*;
+    import java.util.*;
 
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -117,7 +117,6 @@ public class GyhRepaginadoLanguageLexer extends Lexer {
 	            System.out.println(c.toString());
 	        }
 	    }
-
 
 
 	public GyhRepaginadoLanguageLexer(CharStream input) {

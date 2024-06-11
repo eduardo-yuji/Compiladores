@@ -3,10 +3,14 @@
 #include <stdbool.h>
 #include <string.h>
 
- int main(void){
+int main(void){
 	float Parametro2; 
 	int Parametro; 
 	int Fatorial; 
-	scanf("%d", &Parametro);
- 	return 0;
- }
+	scanf("%f", &Parametro);
+	Fatorial = Parametro;
+	Parametro = 1;
+	Parametro = 1;
+
+	return 0;
+}

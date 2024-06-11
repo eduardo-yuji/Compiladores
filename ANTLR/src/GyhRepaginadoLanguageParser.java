@@ -1,6 +1,6 @@
 // Generated from GyhRepaginadoLanguage.g4 by ANTLR 4.7.2
 
-	import java.util.*;
+    import java.util.*;
 
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -127,7 +127,6 @@ public class GyhRepaginadoLanguageParser extends Parser {
 	        }
 	    }
 
-
 	public GyhRepaginadoLanguageParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
@@ -187,13 +186,13 @@ public class GyhRepaginadoLanguageParser extends Parser {
 			setState(39);
 			listaComandos();
 			 
-			              prog.setTabela(_tabelaSimbolo);
-			              prog.setComando(listCmd);
-			              prog.geradorCodigo();
-			              imprimeTabelaSimbolo(_tabelaSimbolo); 
-			              imprimeComando(listCmd);
-			              System.out.println("\nAnálise Sintática finalizada com sucesso! "); 
-			          
+			        prog.setTabela(_tabelaSimbolo);
+			        prog.setComando(listCmd);
+			        prog.geradorCodigo();
+			        imprimeTabelaSimbolo(_tabelaSimbolo); 
+			        imprimeComando(listCmd);
+			        System.out.println("\nAnálise Sintática finalizada com sucesso! "); 
+			    
 			}
 		}
 		catch (RecognitionException re) {
@@ -305,18 +304,18 @@ public class GyhRepaginadoLanguageParser extends Parser {
 			}
 			setState(50);
 			match(FimDelim);
-			 _nomeVar= _input.LT(-4).getText();
-						  _tipoVar= _input.LT(-2).getText();
-						  _valorVar= null;
-						  
-						  if(_tabelaSimbolo.exists(_nomeVar)==false){
-						  		_simboloVar=new Simbolo(_nomeVar, _tipoVar, _valorVar);
-						  		_tabelaSimbolo.setTabela(_simboloVar);	
-						  }	
-						  else{
-						  	System.out.println("Erro semantico >> redeclaracao de variavel: "+_nomeVar);
-						  }	  
-						
+			 
+			        _nomeVar = _input.LT(-4).getText();
+			        _tipoVar = _input.LT(-2).getText();
+			        _valorVar = null;
+			        
+			        if(!_tabelaSimbolo.exists(_nomeVar)){
+			            _simboloVar = new Simbolo(_nomeVar, _tipoVar, _valorVar);
+			            _tabelaSimbolo.setTabela(_simboloVar);    
+			        } else {
+			            System.out.println("Erro semantico >> redeclaracao de variavel: " + _nomeVar);
+			        }    
+			    
 			}
 		}
 		catch (RecognitionException re) {
@@ -337,14 +336,8 @@ public class GyhRepaginadoLanguageParser extends Parser {
 		public TermoAritmeticoContext termoAritmetico(int i) {
 			return getRuleContext(TermoAritmeticoContext.class,i);
 		}
-		public List<TerminalNode> OpAritSoma() { return getTokens(GyhRepaginadoLanguageParser.OpAritSoma); }
-		public TerminalNode OpAritSoma(int i) {
-			return getToken(GyhRepaginadoLanguageParser.OpAritSoma, i);
-		}
-		public List<TerminalNode> OpAritSub() { return getTokens(GyhRepaginadoLanguageParser.OpAritSub); }
-		public TerminalNode OpAritSub(int i) {
-			return getToken(GyhRepaginadoLanguageParser.OpAritSub, i);
-		}
+		public TerminalNode OpAritSoma() { return getToken(GyhRepaginadoLanguageParser.OpAritSoma, 0); }
+		public TerminalNode OpAritSub() { return getToken(GyhRepaginadoLanguageParser.OpAritSub, 0); }
 		public ExpressaoAritmeticaContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -368,11 +361,10 @@ public class GyhRepaginadoLanguageParser extends Parser {
 			{
 			setState(53);
 			termoAritmetico();
-			setState(58);
+			setState(56);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==OpAritSoma || _la==OpAritSub) {
-				{
+			if (_la==OpAritSoma || _la==OpAritSub) {
 				{
 				setState(54);
 				_la = _input.LA(1);
@@ -387,11 +379,8 @@ public class GyhRepaginadoLanguageParser extends Parser {
 				setState(55);
 				termoAritmetico();
 				}
-				}
-				setState(60);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
 			}
+
 			}
 		}
 		catch (RecognitionException re) {
@@ -441,15 +430,15 @@ public class GyhRepaginadoLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(61);
+			setState(58);
 			fatorAritmetico();
-			setState(66);
+			setState(63);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==OpAritMult || _la==OpAritDiv) {
 				{
 				{
-				setState(62);
+				setState(59);
 				_la = _input.LA(1);
 				if ( !(_la==OpAritMult || _la==OpAritDiv) ) {
 				_errHandler.recoverInline(this);
@@ -459,11 +448,11 @@ public class GyhRepaginadoLanguageParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(63);
+				setState(60);
 				fatorAritmetico();
 				}
 				}
-				setState(68);
+				setState(65);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -507,39 +496,41 @@ public class GyhRepaginadoLanguageParser extends Parser {
 		FatorAritmeticoContext _localctx = new FatorAritmeticoContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_fatorAritmetico);
 		try {
-			setState(76);
+			setState(73);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case NumInt:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(69);
+				setState(66);
 				match(NumInt);
 				}
 				break;
 			case NumReal:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(70);
+				setState(67);
 				match(NumReal);
 				}
 				break;
 			case Var:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(71);
+				setState(68);
 				match(Var);
 				}
 				break;
 			case AbrePar:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(72);
+				{
+				setState(69);
 				match(AbrePar);
-				setState(73);
+				setState(70);
 				expressaoAritmetica();
-				setState(74);
+				setState(71);
 				match(FechaPar);
+				}
 				}
 				break;
 			default:
@@ -593,15 +584,15 @@ public class GyhRepaginadoLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(78);
+			setState(75);
 			termoRelacional();
-			setState(83);
+			setState(80);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==OpBoolE || _la==OpBoolOu) {
 				{
 				{
-				setState(79);
+				setState(76);
 				_la = _input.LA(1);
 				if ( !(_la==OpBoolE || _la==OpBoolOu) ) {
 				_errHandler.recoverInline(this);
@@ -611,11 +602,11 @@ public class GyhRepaginadoLanguageParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(80);
+				setState(77);
 				termoRelacional();
 				}
 				}
-				setState(85);
+				setState(82);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -663,29 +654,33 @@ public class GyhRepaginadoLanguageParser extends Parser {
 		TermoRelacionalContext _localctx = new TermoRelacionalContext(_ctx, getState());
 		enterRule(_localctx, 14, RULE_termoRelacional);
 		try {
-			setState(94);
+			setState(91);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(86);
+				{
+				setState(83);
 				expressaoAritmetica();
-				setState(87);
+				setState(84);
 				match(OpRel);
-				setState(88);
+				setState(85);
 				expressaoAritmetica();
+				}
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(90);
+				{
+				setState(87);
 				match(AbrePar);
-				setState(91);
+				setState(88);
 				expressaoRelacional();
-				setState(92);
+				setState(89);
 				match(FechaPar);
+				}
 				}
 				break;
 			}
@@ -729,7 +724,7 @@ public class GyhRepaginadoLanguageParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(97); 
+			setState(94); 
 			_errHandler.sync(this);
 			_alt = 1;
 			do {
@@ -737,7 +732,7 @@ public class GyhRepaginadoLanguageParser extends Parser {
 				case 1:
 					{
 					{
-					setState(96);
+					setState(93);
 					comando();
 					}
 					}
@@ -745,7 +740,7 @@ public class GyhRepaginadoLanguageParser extends Parser {
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(99); 
+				setState(96); 
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
 			} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
@@ -799,48 +794,48 @@ public class GyhRepaginadoLanguageParser extends Parser {
 		ComandoContext _localctx = new ComandoContext(_ctx, getState());
 		enterRule(_localctx, 18, RULE_comando);
 		try {
-			setState(107);
+			setState(104);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case Var:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(101);
+				setState(98);
 				comandoAtribuicao();
 				}
 				break;
 			case PCLer:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(102);
+				setState(99);
 				comandoEntrada();
 				}
 				break;
 			case PCImprimir:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(103);
+				setState(100);
 				comandoSaida();
 				}
 				break;
 			case PCSe:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(104);
+				setState(101);
 				comandoCondicao();
 				}
 				break;
 			case PCEnqto:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(105);
+				setState(102);
 				comandoRepeticao();
 				}
 				break;
 			case PCIni:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(106);
+				setState(103);
 				subAlgoritmo();
 				}
 				break;
@@ -885,22 +880,22 @@ public class GyhRepaginadoLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(109);
+			setState(106);
 			match(Var);
-			setState(110);
+			setState(107);
 			match(Atrib);
-			setState(111);
+			setState(108);
 			expressaoAritmetica();
 
-			                    _nomeVar= _input.LT(-3).getText();
-			                    if(_tabelaSimbolo.exists(_nomeVar)==false){
-			                      System.out.println("Erro semantico >> Variavel nao declarada: "+_nomeVar);	
-			                    } else {
-			                      _valorVar = _input.LT(-1).getText();
-			                      //ComandoAtrib cmd = new ComandoAtrib(_nomeVar,_valorVar);
-			                      //listCmd.add(cmd);
-			                    }
-			                  
+			        _nomeVar = _input.LT(-3).getText();
+			        if (!_tabelaSimbolo.exists(_nomeVar)){
+			            System.out.println("Erro semantico >> Variavel nao declarada: " + _nomeVar);    
+			        } else {
+			            _valorVar = _input.LT(-1).getText();
+			            ComandoAtribuicao cmd = new ComandoAtribuicao(_nomeVar, _valorVar);
+			            listCmd.add(cmd);
+			        }
+			    
 			}
 		}
 		catch (RecognitionException re) {
@@ -937,19 +932,20 @@ public class GyhRepaginadoLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(114);
+			setState(111);
 			match(PCLer);
-			setState(115);
+			setState(112);
 			match(Var);
 
-			                  if(!_tabelaSimbolo.exists(_input.LT(-1).getText())) {
-			                    System.out.println("Erro semântico >> variável não declarada: " + _input.LT(-1).getText());
-			                  } else {
-			                    ComandoLeitura cmd = new ComandoLeitura();
-			                    cmd.setId(_input.LT(-1).getText());
-			                    listCmd.add(cmd);
-			                  }
-			                
+			        if (!_tabelaSimbolo.exists(_input.LT(-1).getText())) {
+			            System.out.println("Erro semântico >> variável não declarada: " + _input.LT(-1).getText());
+			        } else {
+			            ComandoLeitura cmd = new ComandoLeitura();
+			            cmd.setId(_input.LT(-1).getText());
+			            cmd.setTipo(_input.LT(-1).getText());
+			            listCmd.add(cmd);
+			        }
+			    
 			}
 		}
 		catch (RecognitionException re) {
@@ -988,9 +984,9 @@ public class GyhRepaginadoLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(118);
+			setState(115);
 			match(PCImprimir);
-			setState(119);
+			setState(116);
 			_la = _input.LA(1);
 			if ( !(_la==Var || _la==Cadeia) ) {
 			_errHandler.recoverInline(this);
@@ -1001,21 +997,21 @@ public class GyhRepaginadoLanguageParser extends Parser {
 				consume();
 			}
 
-			                ComandoEscrita cmd = new ComandoEscrita();
-			                String texto = _input.LT(-1).getText();
-			                if (texto.startsWith("\"") && texto.endsWith("\"")) {
-			                    // É uma cadeia de caracteres
-			                    cmd.setTexto(texto.substring(1, texto.length() - 1)); // Remove as aspas
-			                } else {
-			                    // É uma variável
-			                    if (!_tabelaSimbolo.exists(texto)) {
-			                        System.out.println("Erro semântico >> variável não declarada: " + texto);
-			                    } else {
-			                        cmd.setTexto(texto);
-			                    }
-			                }
-			                listCmd.add(cmd);
-			              
+			        ComandoEscrita cmd = new ComandoEscrita();
+			        String texto = _input.LT(-1).getText();
+			        if (texto.startsWith("\"") && texto.endsWith("\"")) {
+			            // É uma cadeia de caracteres
+			            cmd.setTexto(texto.substring(1, texto.length() - 1)); // Remove as aspas
+			        } else {
+			            // É uma variável
+			            if (!_tabelaSimbolo.exists(texto)) {
+			                System.out.println("Erro semântico >> variável não declarada: " + texto);
+			            } else {
+			                cmd.setTexto(texto);
+			            }
+			        }
+			        listCmd.add(cmd);
+			    
 			}
 		}
 		catch (RecognitionException re) {
@@ -1066,32 +1062,36 @@ public class GyhRepaginadoLanguageParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(122);
+			setState(119);
 			match(PCSe);
-			setState(123);
+			setState(120);
 			expressaoRelacional();
-			setState(124);
+			setState(121);
 			match(PCEntao);
-			setState(125);
+			setState(122);
 			comando();
-			setState(130);
+			setState(127);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,8,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(126);
+					setState(123);
 					match(PCSenao);
-					setState(127);
+					setState(124);
 					comando();
 					}
 					} 
 				}
-				setState(132);
+				setState(129);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,8,_ctx);
 			}
+
+			        ComandoCondicao cmd = new ComandoCondicao();
+			        listCmd.add(cmd);
+			    
 			}
 		}
 		catch (RecognitionException re) {
@@ -1134,14 +1134,18 @@ public class GyhRepaginadoLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(133);
+			setState(132);
 			match(PCEnqto);
-			setState(134);
+			setState(133);
 			expressaoRelacional();
-			setState(135);
+			setState(134);
 			match(PCEntao);
-			setState(136);
+			setState(135);
 			listaComandos();
+
+			        ComandoRepeticao cmd = new ComandoRepeticao();
+			        listCmd.add(cmd);
+			    
 			}
 		}
 		catch (RecognitionException re) {
@@ -1205,39 +1209,39 @@ public class GyhRepaginadoLanguageParser extends Parser {
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\3\2\3\2\3"+
 		"\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\3\6\3.\n\3\r\3\16\3/\3\4\3\4\3\4\3\4"+
-		"\3\4\3\4\3\5\3\5\3\5\7\5;\n\5\f\5\16\5>\13\5\3\6\3\6\3\6\7\6C\n\6\f\6"+
-		"\16\6F\13\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\5\7O\n\7\3\b\3\b\3\b\7\bT\n\b"+
-		"\f\b\16\bW\13\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\ta\n\t\3\n\6\nd\n\n"+
-		"\r\n\16\ne\3\13\3\13\3\13\3\13\3\13\3\13\5\13n\n\13\3\f\3\f\3\f\3\f\3"+
-		"\f\3\r\3\r\3\r\3\r\3\16\3\16\3\16\3\16\3\17\3\17\3\17\3\17\3\17\3\17\7"+
-		"\17\u0083\n\17\f\17\16\17\u0086\13\17\3\20\3\20\3\20\3\20\3\20\3\21\3"+
-		"\21\3\21\3\21\3\21\2\2\22\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \2\7"+
-		"\3\2\21\22\3\2\t\n\3\2\7\b\3\2\r\16\3\2\33\34\2\u008f\2\"\3\2\2\2\4-\3"+
-		"\2\2\2\6\61\3\2\2\2\b\67\3\2\2\2\n?\3\2\2\2\fN\3\2\2\2\16P\3\2\2\2\20"+
-		"`\3\2\2\2\22c\3\2\2\2\24m\3\2\2\2\26o\3\2\2\2\30t\3\2\2\2\32x\3\2\2\2"+
-		"\34|\3\2\2\2\36\u0087\3\2\2\2 \u008c\3\2\2\2\"#\7\4\2\2#$\7\20\2\2$%\7"+
-		"\3\2\2%&\5\4\3\2&\'\7\4\2\2\'(\7\17\2\2()\7\3\2\2)*\5\22\n\2*+\b\2\1\2"+
-		"+\3\3\2\2\2,.\5\6\4\2-,\3\2\2\2./\3\2\2\2/-\3\2\2\2/\60\3\2\2\2\60\5\3"+
-		"\2\2\2\61\62\7\33\2\2\62\63\7\4\2\2\63\64\t\2\2\2\64\65\7\3\2\2\65\66"+
-		"\b\4\1\2\66\7\3\2\2\2\67<\5\n\6\289\t\3\2\29;\5\n\6\2:8\3\2\2\2;>\3\2"+
-		"\2\2<:\3\2\2\2<=\3\2\2\2=\t\3\2\2\2><\3\2\2\2?D\5\f\7\2@A\t\4\2\2AC\5"+
-		"\f\7\2B@\3\2\2\2CF\3\2\2\2DB\3\2\2\2DE\3\2\2\2E\13\3\2\2\2FD\3\2\2\2G"+
-		"O\7\35\2\2HO\7\36\2\2IO\7\33\2\2JK\7\5\2\2KL\5\b\5\2LM\7\6\2\2MO\3\2\2"+
-		"\2NG\3\2\2\2NH\3\2\2\2NI\3\2\2\2NJ\3\2\2\2O\r\3\2\2\2PU\5\20\t\2QR\t\5"+
-		"\2\2RT\5\20\t\2SQ\3\2\2\2TW\3\2\2\2US\3\2\2\2UV\3\2\2\2V\17\3\2\2\2WU"+
-		"\3\2\2\2XY\5\b\5\2YZ\7\f\2\2Z[\5\b\5\2[a\3\2\2\2\\]\7\5\2\2]^\5\16\b\2"+
-		"^_\7\6\2\2_a\3\2\2\2`X\3\2\2\2`\\\3\2\2\2a\21\3\2\2\2bd\5\24\13\2cb\3"+
-		"\2\2\2de\3\2\2\2ec\3\2\2\2ef\3\2\2\2f\23\3\2\2\2gn\5\26\f\2hn\5\30\r\2"+
-		"in\5\32\16\2jn\5\34\17\2kn\5\36\20\2ln\5 \21\2mg\3\2\2\2mh\3\2\2\2mi\3"+
-		"\2\2\2mj\3\2\2\2mk\3\2\2\2ml\3\2\2\2n\25\3\2\2\2op\7\33\2\2pq\7\13\2\2"+
-		"qr\5\b\5\2rs\b\f\1\2s\27\3\2\2\2tu\7\23\2\2uv\7\33\2\2vw\b\r\1\2w\31\3"+
-		"\2\2\2xy\7\24\2\2yz\t\6\2\2z{\b\16\1\2{\33\3\2\2\2|}\7\25\2\2}~\5\16\b"+
-		"\2~\177\7\27\2\2\177\u0084\5\24\13\2\u0080\u0081\7\26\2\2\u0081\u0083"+
-		"\5\24\13\2\u0082\u0080\3\2\2\2\u0083\u0086\3\2\2\2\u0084\u0082\3\2\2\2"+
-		"\u0084\u0085\3\2\2\2\u0085\35\3\2\2\2\u0086\u0084\3\2\2\2\u0087\u0088"+
-		"\7\30\2\2\u0088\u0089\5\16\b\2\u0089\u008a\7\27\2\2\u008a\u008b\5\22\n"+
-		"\2\u008b\37\3\2\2\2\u008c\u008d\7\31\2\2\u008d\u008e\5\22\n\2\u008e\u008f"+
-		"\7\32\2\2\u008f!\3\2\2\2\13/<DNU`em\u0084";
+		"\3\4\3\4\3\5\3\5\3\5\5\5;\n\5\3\6\3\6\3\6\7\6@\n\6\f\6\16\6C\13\6\3\7"+
+		"\3\7\3\7\3\7\3\7\3\7\3\7\5\7L\n\7\3\b\3\b\3\b\7\bQ\n\b\f\b\16\bT\13\b"+
+		"\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\t^\n\t\3\n\6\na\n\n\r\n\16\nb\3\13"+
+		"\3\13\3\13\3\13\3\13\3\13\5\13k\n\13\3\f\3\f\3\f\3\f\3\f\3\r\3\r\3\r\3"+
+		"\r\3\16\3\16\3\16\3\16\3\17\3\17\3\17\3\17\3\17\3\17\7\17\u0080\n\17\f"+
+		"\17\16\17\u0083\13\17\3\17\3\17\3\20\3\20\3\20\3\20\3\20\3\20\3\21\3\21"+
+		"\3\21\3\21\3\21\2\2\22\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \2\7\3\2"+
+		"\21\22\3\2\t\n\3\2\7\b\3\2\r\16\3\2\33\34\2\u008f\2\"\3\2\2\2\4-\3\2\2"+
+		"\2\6\61\3\2\2\2\b\67\3\2\2\2\n<\3\2\2\2\fK\3\2\2\2\16M\3\2\2\2\20]\3\2"+
+		"\2\2\22`\3\2\2\2\24j\3\2\2\2\26l\3\2\2\2\30q\3\2\2\2\32u\3\2\2\2\34y\3"+
+		"\2\2\2\36\u0086\3\2\2\2 \u008c\3\2\2\2\"#\7\4\2\2#$\7\20\2\2$%\7\3\2\2"+
+		"%&\5\4\3\2&\'\7\4\2\2\'(\7\17\2\2()\7\3\2\2)*\5\22\n\2*+\b\2\1\2+\3\3"+
+		"\2\2\2,.\5\6\4\2-,\3\2\2\2./\3\2\2\2/-\3\2\2\2/\60\3\2\2\2\60\5\3\2\2"+
+		"\2\61\62\7\33\2\2\62\63\7\4\2\2\63\64\t\2\2\2\64\65\7\3\2\2\65\66\b\4"+
+		"\1\2\66\7\3\2\2\2\67:\5\n\6\289\t\3\2\29;\5\n\6\2:8\3\2\2\2:;\3\2\2\2"+
+		";\t\3\2\2\2<A\5\f\7\2=>\t\4\2\2>@\5\f\7\2?=\3\2\2\2@C\3\2\2\2A?\3\2\2"+
+		"\2AB\3\2\2\2B\13\3\2\2\2CA\3\2\2\2DL\7\35\2\2EL\7\36\2\2FL\7\33\2\2GH"+
+		"\7\5\2\2HI\5\b\5\2IJ\7\6\2\2JL\3\2\2\2KD\3\2\2\2KE\3\2\2\2KF\3\2\2\2K"+
+		"G\3\2\2\2L\r\3\2\2\2MR\5\20\t\2NO\t\5\2\2OQ\5\20\t\2PN\3\2\2\2QT\3\2\2"+
+		"\2RP\3\2\2\2RS\3\2\2\2S\17\3\2\2\2TR\3\2\2\2UV\5\b\5\2VW\7\f\2\2WX\5\b"+
+		"\5\2X^\3\2\2\2YZ\7\5\2\2Z[\5\16\b\2[\\\7\6\2\2\\^\3\2\2\2]U\3\2\2\2]Y"+
+		"\3\2\2\2^\21\3\2\2\2_a\5\24\13\2`_\3\2\2\2ab\3\2\2\2b`\3\2\2\2bc\3\2\2"+
+		"\2c\23\3\2\2\2dk\5\26\f\2ek\5\30\r\2fk\5\32\16\2gk\5\34\17\2hk\5\36\20"+
+		"\2ik\5 \21\2jd\3\2\2\2je\3\2\2\2jf\3\2\2\2jg\3\2\2\2jh\3\2\2\2ji\3\2\2"+
+		"\2k\25\3\2\2\2lm\7\33\2\2mn\7\13\2\2no\5\b\5\2op\b\f\1\2p\27\3\2\2\2q"+
+		"r\7\23\2\2rs\7\33\2\2st\b\r\1\2t\31\3\2\2\2uv\7\24\2\2vw\t\6\2\2wx\b\16"+
+		"\1\2x\33\3\2\2\2yz\7\25\2\2z{\5\16\b\2{|\7\27\2\2|\u0081\5\24\13\2}~\7"+
+		"\26\2\2~\u0080\5\24\13\2\177}\3\2\2\2\u0080\u0083\3\2\2\2\u0081\177\3"+
+		"\2\2\2\u0081\u0082\3\2\2\2\u0082\u0084\3\2\2\2\u0083\u0081\3\2\2\2\u0084"+
+		"\u0085\b\17\1\2\u0085\35\3\2\2\2\u0086\u0087\7\30\2\2\u0087\u0088\5\16"+
+		"\b\2\u0088\u0089\7\27\2\2\u0089\u008a\5\22\n\2\u008a\u008b\b\20\1\2\u008b"+
+		"\37\3\2\2\2\u008c\u008d\7\31\2\2\u008d\u008e\5\22\n\2\u008e\u008f\7\32"+
+		"\2\2\u008f!\3\2\2\2\13/:AKR]bj\u0081";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
