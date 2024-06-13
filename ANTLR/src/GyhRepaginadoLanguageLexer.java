@@ -99,11 +99,17 @@ public class GyhRepaginadoLanguageLexer extends Lexer {
 	    private String _tipoVar;
 	    private String _valorVar;
 	    private Simbolo _simboloVar;
+	    
+	    private String _expVar;
+	    private String _varExpressao;
+
 	    private String _varCondicao;
-	    private String _varExp;
+	    private ArrayList<Comando> _cmdV = new ArrayList<Comando>();
+	    private ArrayList<Comando> _cmdF = new ArrayList<Comando>();;
 
 	    private GeraCodigo prog = new GeraCodigo(); 
 	    private ArrayList<Comando> listCmd = new ArrayList<Comando>(); 
+	    private ArrayList<Comando> listCmdAux = new ArrayList<Comando>(); 
 	    private TabelaSimbolo _tabelaSimbolo = new TabelaSimbolo();
 	    
 	    public void imprimeTabelaSimbolo(TabelaSimbolo tabela) {

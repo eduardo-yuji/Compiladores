@@ -9,11 +9,17 @@ grammar GyhRepaginadoLanguage;
     private String _tipoVar;
     private String _valorVar;
     private Simbolo _simboloVar;
+    
+    private String _expVar;
+    private String _varExpressao;
+
     private String _varCondicao;
-    private String _varExp;
+    private ArrayList<Comando> _cmdV = new ArrayList<Comando>();
+    private ArrayList<Comando> _cmdF = new ArrayList<Comando>();;
 
     private GeraCodigo prog = new GeraCodigo(); 
     private ArrayList<Comando> listCmd = new ArrayList<Comando>(); 
+    private ArrayList<Comando> listCmdAux = new ArrayList<Comando>(); 
     private TabelaSimbolo _tabelaSimbolo = new TabelaSimbolo();
     
     public void imprimeTabelaSimbolo(TabelaSimbolo tabela) {
@@ -31,8 +37,7 @@ grammar GyhRepaginadoLanguage;
 
 //------------------------------------------------Gramatica------------------------------------------------
 
-programa: 
-    IniDelim PCDec FimDelim listaDeclaracoes IniDelim PCProg FimDelim listaComandos 
+programa: IniDelim PCDec FimDelim listaDeclaracoes IniDelim PCProg FimDelim listaComandos 
     { 
         prog.setTabela(_tabelaSimbolo);
         prog.setComando(listCmd);
@@ -40,124 +45,123 @@ programa:
         imprimeTabelaSimbolo(_tabelaSimbolo); 
         imprimeComando(listCmd);
         System.out.println("\nAnálise Sintática finalizada com sucesso! "); 
-    }
+    };
+
+listaDeclaracoes: (declaracao)+;
+
+declaracao: Var                 {_nomeVar = _input.LT(-1).getText();}
+            IniDelim 
+            (PCInt | PCReal)    {_tipoVar = _input.LT(-1).getText();}
+            FimDelim
+            { 
+                _valorVar = null;
+                if(!_tabelaSimbolo.exists(_nomeVar)){
+                    _simboloVar = new Simbolo(_nomeVar, _tipoVar, _valorVar);
+                    _tabelaSimbolo.setTabela(_simboloVar);    
+                } else {
+                    System.out.println("Erro semantico >> redeclaracao de variavel: " + _nomeVar);
+                }    
+            };
+
+expressaoAritmetica: termoAritmetico (
+                    ('+'   {_varExpressao += " + "; } 
+                    |'-'   {_varExpressao += " - "; }
+                    ) termoAritmetico)*; 
+
+termoAritmetico: fatorAritmetico (
+                    ('*' {_varExpressao += " * "; }
+                    |'/' {_varExpressao += " / "; }
+                    ) fatorAritmetico)*;
+
+fatorAritmetico: NumInt              {_varExpressao += _input.LT(-1).getText();}
+                | NumReal            {_varExpressao += _input.LT(-1).getText();}
+                | Var                {_varExpressao += _input.LT(-1).getText();}
+                | (AbrePar           {_varCondicao+= "("; } 
+                expressaoAritmetica 
+                FechaPar             {_varCondicao+= ")"; }
+                );
+
+expressaoRelacional: termoRelacional    { _varCondicao+= " ";_varCondicao+= _varExpressao; _varExpressao=""; }
+                    ((OpBoolOu          { _varCondicao+= " "; _varCondicao+=_input.LT(-1).getText(); }
+                    | OpBoolE           { _varCondicao+= " "; _varCondicao+=_input.LT(-1).getText(); }
+                    ) termoRelacional   
+                    )*;
+
+termoRelacional:                                  { _varExpressao = "";}
+                (expressaoAritmetica              { _varCondicao+= " "; _varCondicao+=_input.LT(-1).getText(); _varExpressao = "";}
+                OpRel                             { _varCondicao+= " "; _varCondicao+=_input.LT(-1).getText(); _varExpressao = "";}
+                expressaoAritmetica)|             { _varExpressao = "";}
+                (AbrePar                          { _varCondicao= "("; }
+                expressaoRelacional               
+                FechaPar                          { _varCondicao+= ")"; });
+
+listaComandos:(comando
+                {
+                    listCmd.addAll(listCmdAux);
+                    listCmdAux.removeAll(listCmdAux);
+                }
+            )+
 ;
 
-listaDeclaracoes: 
-    (declaracao)+
-;
+comando: comandoAtribuicao | comandoEntrada | comandoSaida | comandoCondicao | comandoRepeticao | subAlgoritmo;
 
-declaracao: 
-    Var IniDelim (PCInt | PCReal) FimDelim
-    { 
-        _nomeVar = _input.LT(-4).getText();
-        _tipoVar = _input.LT(-2).getText();
-        _valorVar = null;
-        
-        if(!_tabelaSimbolo.exists(_nomeVar)){
-            _simboloVar = new Simbolo(_nomeVar, _tipoVar, _valorVar);
-            _tabelaSimbolo.setTabela(_simboloVar);    
-        } else {
-            System.out.println("Erro semantico >> redeclaracao de variavel: " + _nomeVar);
-        }    
-    }
-;
+    comandoAtribuicao:  Var             {_nomeVar = (_input.LT(-1).getText());
+                                        if (!_tabelaSimbolo.exists(_nomeVar)){
+                                            System.out.println("Erro semantico >> Variavel nao declarada: " + _nomeVar);    
+                                        } else {
+                                            _expVar = _input.LT(-1).getText();}
+                                        }
+                    Atrib               {_varExpressao = "";}
+                    expressaoAritmetica {ComandoAtribuicao cmd = new ComandoAtribuicao(_expVar, _varExpressao); listCmdAux.add(cmd);};
 
-expressaoAritmetica: 
-    termoAritmetico (('+' | '-') termoAritmetico)?
-; 
+comandoEntrada: PCLer Var
+            {
+                if (!_tabelaSimbolo.exists(_input.LT(-1).getText())) {
+                    System.out.println("Erro semântico >> variável não declarada: " + _input.LT(-1).getText());
+                } else {
+                    String _tipo ="";
+                    ComandoLeitura cmd = new ComandoLeitura();
+                    cmd.setId(_input.LT(-1).getText());
+                    cmd.setTipo(_tipo);
+                    listCmdAux.add(cmd);
+                }
+            };
 
-termoAritmetico: 
-    fatorAritmetico (('*' | '/') fatorAritmetico)*
-;
+comandoSaida: PCImprimir    {ComandoEscrita cmd = new ComandoEscrita();}
+            (Var            {
+                                String texto = _input.LT(-1).getText();
+                                if (!_tabelaSimbolo.exists(texto)) {
+                                    System.out.println("Erro semântico >> variável não declarada: " + texto);
+                                } else {
+                                    cmd.setTexto(texto);
+                                }
+                            }
+            |Cadeia)        {
+                                String texto = _input.LT(-1).getText();
+                                cmd.setTexto(texto);
+                            }
+                            {listCmdAux.add(cmd);};
 
-fatorAritmetico: 
-    NumInt | NumReal | Var | (AbrePar expressaoAritmetica FechaPar)
-;
+comandoCondicao: PCSe               {_varExpressao= ""; _varCondicao= "";}
+                expressaoRelacional
+                PCEntao
+                comando             { _cmdV.addAll(listCmdAux); listCmdAux.removeAll(listCmdAux);}
+                (PCSenao comando    { _cmdF.addAll(listCmdAux); listCmdAux.removeAll(listCmdAux);}
+                )*
+                {
+                    ComandoCondicao cmd = new ComandoCondicao(_varCondicao, _cmdV, _cmdF);
+                    listCmdAux.add(cmd);
+                };
 
-expressaoRelacional: 
-    termoRelacional ((OpBoolOu | OpBoolE) termoRelacional)*
-;
+comandoRepeticao: PCEnqto   { _varExpressao= ""; _varCondicao= "";}
+                    expressaoRelacional PCEntao comando           
+                    {
+                        _cmdV.addAll(listCmdAux); listCmdAux.removeAll(listCmdAux);
+                        ComandoRepeticao cmd = new ComandoRepeticao(_varCondicao, _cmdV);
+                        listCmdAux.add(cmd);
+                    };
 
-termoRelacional: 
-    (expressaoAritmetica OpRel expressaoAritmetica) | (AbrePar expressaoRelacional FechaPar)
-;
-
-listaComandos: 
-    (comando)+
-;
-
-comando: 
-    comandoAtribuicao | comandoEntrada | comandoSaida | comandoCondicao | comandoRepeticao | subAlgoritmo
-;
-
-comandoAtribuicao: 
-    Var Atrib expressaoAritmetica
-    {
-        _nomeVar = _input.LT(-3).getText();
-        if (!_tabelaSimbolo.exists(_nomeVar)){
-            System.out.println("Erro semantico >> Variavel nao declarada: " + _nomeVar);    
-        } else {
-            _valorVar = _input.LT(-1).getText();
-            ComandoAtribuicao cmd = new ComandoAtribuicao(_nomeVar, _valorVar);
-            listCmd.add(cmd);
-        }
-    }
-;
-
-comandoEntrada: 
-    PCLer Var
-    {
-        if (!_tabelaSimbolo.exists(_input.LT(-1).getText())) {
-            System.out.println("Erro semântico >> variável não declarada: " + _input.LT(-1).getText());
-        } else {
-            ComandoLeitura cmd = new ComandoLeitura();
-            cmd.setId(_input.LT(-1).getText());
-            cmd.setTipo(_input.LT(-1).getText());
-            listCmd.add(cmd);
-        }
-    }
-;
-
-comandoSaida: 
-    PCImprimir (Var | Cadeia)
-    {
-        ComandoEscrita cmd = new ComandoEscrita();
-        String texto = _input.LT(-1).getText();
-        if (texto.startsWith("\"") && texto.endsWith("\"")) {
-            // É uma cadeia de caracteres
-            cmd.setTexto(texto.substring(1, texto.length() - 1)); // Remove as aspas
-        } else {
-            // É uma variável
-            if (!_tabelaSimbolo.exists(texto)) {
-                System.out.println("Erro semântico >> variável não declarada: " + texto);
-            } else {
-                cmd.setTexto(texto);
-            }
-        }
-        listCmd.add(cmd);
-    }
-;
-
-comandoCondicao: 
-    PCSe expressaoRelacional PCEntao comando (PCSenao comando)*
-    {
-        ComandoCondicao cmd = new ComandoCondicao();
-        listCmd.add(cmd);
-    }
-;
-
-comandoRepeticao: 
-    PCEnqto expressaoRelacional PCEntao listaComandos
-    {
-        ComandoRepeticao cmd = new ComandoRepeticao();
-        listCmd.add(cmd);
-    }
-;
-
-subAlgoritmo: 
-    PCIni listaComandos PCFim
-;
+subAlgoritmo: PCIni comando+ PCFim;
 
 //------------------------------------------------Tokens------------------------------------------------
 

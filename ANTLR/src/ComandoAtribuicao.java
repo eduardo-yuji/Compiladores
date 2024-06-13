@@ -7,29 +7,17 @@ public class ComandoAtribuicao extends Comando {
         this.expressao = expressao;
     }
 
-    public String getId() {
-        return id;
-    }
+    public String getId() {return id;}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public void setId(String id) {this.id = id;}
 
-    public String getExpressao() {
-        return expressao;
-    }
+    public String getExpressao() {return expressao;}
 
-    public void setExpressao(String expressao) {
-        this.expressao = expressao;
-    }
+    public void setExpressao(String expressao) {this.expressao = expressao;}
 
     @Override
     public String geradorCodigo() {
         return id + " = " + expressao + ";";
     }
 
-    @Override
-    public String toString() {
-        return "Atribuição: " + id + " << " + expressao;
-    }
 }

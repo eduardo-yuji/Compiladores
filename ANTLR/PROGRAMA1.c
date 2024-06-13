@@ -4,13 +4,20 @@
 #include <string.h>
 
 int main(void){
-	float Parametro2; 
 	int Parametro; 
 	int Fatorial; 
-	scanf("%f", &Parametro);
+	
 	Fatorial = Parametro;
-	Parametro = 1;
-	Parametro = 1;
+	if ( Parametro == 0) {
+		Fatorial = 1;
+		Fatorial = Fatorial * Parametro - 1;
+		Parametro = Parametro - 1;
+	}
+	while ( Parametro > 1) {
+		Fatorial = 1;
+		Fatorial = Fatorial * Parametro - 1;
+		Parametro = Parametro - 1;
+	}
 
 	return 0;
 }

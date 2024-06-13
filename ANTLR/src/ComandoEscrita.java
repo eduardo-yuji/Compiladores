@@ -1,13 +1,9 @@
 public class ComandoEscrita extends Comando {
     private String texto;
 
-    public String getTexto() {
-        return texto;
-    }
+    public String getTexto() {return texto;}
 
-    public void setTexto(String texto) {
-        this.texto = texto;
-    }
+    public void setTexto(String texto) {this.texto = texto;}
 
     @Override
     public String geradorCodigo() {
@@ -21,8 +17,4 @@ public class ComandoEscrita extends Comando {
         return "";
     }
 
-    @Override
-    public String toString() {
-        return "Escrita: print " + texto;
-    }
 }
