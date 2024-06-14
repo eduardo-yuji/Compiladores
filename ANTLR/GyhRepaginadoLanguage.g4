@@ -14,8 +14,10 @@ grammar GyhRepaginadoLanguage;
     private String _varExpressao;
 
     private String _varCondicao;
-    private ArrayList<Comando> _cmdV = new ArrayList<Comando>();
-    private ArrayList<Comando> _cmdF = new ArrayList<Comando>();;
+    private ArrayList<Comando> _cmdIf = new ArrayList<Comando>();
+    private ArrayList<Comando> _cmdElse = new ArrayList<Comando>();
+    private ArrayList<Comando> _cmdRep = new ArrayList<Comando>();
+    
 
     private GeraCodigo prog = new GeraCodigo(); 
     private ArrayList<Comando> listCmd = new ArrayList<Comando>(); 
@@ -76,43 +78,39 @@ termoAritmetico: fatorAritmetico (
 fatorAritmetico: NumInt              {_varExpressao += _input.LT(-1).getText();}
                 | NumReal            {_varExpressao += _input.LT(-1).getText();}
                 | Var                {_varExpressao += _input.LT(-1).getText();}
-                | (AbrePar           {_varCondicao+= "("; } 
+                | (AbrePar           {_varExpressao += "("; } 
                 expressaoAritmetica 
-                FechaPar             {_varCondicao+= ")"; }
+                FechaPar             {_varExpressao += ")"; }
                 );
 
-expressaoRelacional: termoRelacional    { _varCondicao+= " ";_varCondicao+= _varExpressao; _varExpressao=""; }
-                    ((OpBoolOu          { _varCondicao+= " "; _varCondicao+=_input.LT(-1).getText(); }
-                    | OpBoolE           { _varCondicao+= " "; _varCondicao+=_input.LT(-1).getText(); }
-                    ) termoRelacional   
+expressaoRelacional: termoRelacional    { _varCondicao += " ";_varCondicao+= _varExpressao; _varExpressao=""; }
+                    ((OpBoolOu          { _varCondicao += " ||";}
+                    | OpBoolE           { _varCondicao += " &&";}
+                    ) termoRelacional   { _varCondicao += " ";_varCondicao+= _varExpressao; _varExpressao=""; }
                     )*;
 
 termoRelacional:                                  { _varExpressao = "";}
-                (expressaoAritmetica              { _varCondicao+= " "; _varCondicao+=_input.LT(-1).getText(); _varExpressao = "";}
-                OpRel                             { _varCondicao+= " "; _varCondicao+=_input.LT(-1).getText(); _varExpressao = "";}
+                (expressaoAritmetica              { _varCondicao += " "; _varCondicao+=_input.LT(-1).getText(); _varExpressao = "";}
+                OpRel                             { _varCondicao += " "; _varCondicao+=_input.LT(-1).getText(); _varExpressao = "";}
                 expressaoAritmetica)|             { _varExpressao = "";}
-                (AbrePar                          { _varCondicao= "("; }
+                (AbrePar                          { _varCondicao = "("; }
                 expressaoRelacional               
-                FechaPar                          { _varCondicao+= ")"; });
+                FechaPar                          { _varCondicao += ")"; });
 
 listaComandos:(comando
-                {
-                    listCmd.addAll(listCmdAux);
-                    listCmdAux.removeAll(listCmdAux);
-                }
-            )+
-;
+                {listCmd.addAll(listCmdAux); listCmdAux.removeAll(listCmdAux);}
+                )+;
 
-comando: comandoAtribuicao | comandoEntrada | comandoSaida | comandoCondicao | comandoRepeticao | subAlgoritmo;
+comando: (comandoAtribuicao | comandoEntrada | comandoSaida | comandoCondicao | comandoRepeticao | subAlgoritmo);
 
-    comandoAtribuicao:  Var             {_nomeVar = (_input.LT(-1).getText());
-                                        if (!_tabelaSimbolo.exists(_nomeVar)){
-                                            System.out.println("Erro semantico >> Variavel nao declarada: " + _nomeVar);    
-                                        } else {
-                                            _expVar = _input.LT(-1).getText();}
-                                        }
-                    Atrib               {_varExpressao = "";}
-                    expressaoAritmetica {ComandoAtribuicao cmd = new ComandoAtribuicao(_expVar, _varExpressao); listCmdAux.add(cmd);};
+comandoAtribuicao:  Var             {_nomeVar = (_input.LT(-1).getText());
+                                    if (!_tabelaSimbolo.exists(_nomeVar)){
+                                        System.out.println("Erro semantico >> Variavel nao declarada: " + _nomeVar);    
+                                    } else {
+                                        _expVar = _input.LT(-1).getText();}
+                                    }
+                Atrib               {_varExpressao = "";}
+                expressaoAritmetica {ComandoAtribuicao cmd = new ComandoAtribuicao(_expVar, _varExpressao); listCmdAux.add(cmd);};
 
 comandoEntrada: PCLer Var
             {
@@ -134,6 +132,7 @@ comandoSaida: PCImprimir    {ComandoEscrita cmd = new ComandoEscrita();}
                                     System.out.println("Erro semântico >> variável não declarada: " + texto);
                                 } else {
                                     cmd.setTexto(texto);
+                                    cmd.setTabela(_tabelaSimbolo);
                                 }
                             }
             |Cadeia)        {
@@ -142,22 +141,25 @@ comandoSaida: PCImprimir    {ComandoEscrita cmd = new ComandoEscrita();}
                             }
                             {listCmdAux.add(cmd);};
 
-comandoCondicao: PCSe               {_varExpressao= ""; _varCondicao= "";}
+comandoCondicao: {_varExpressao= ""; _varCondicao= "";}
+                PCSe               
                 expressaoRelacional
                 PCEntao
-                comando             { _cmdV.addAll(listCmdAux); listCmdAux.removeAll(listCmdAux);}
-                (PCSenao comando    { _cmdF.addAll(listCmdAux); listCmdAux.removeAll(listCmdAux);}
-                )*
+                comando             { _cmdIf.addAll(listCmdAux); listCmdAux.removeAll(listCmdAux);}
+                (PCSenao comando    { _cmdElse.addAll(listCmdAux); listCmdAux.removeAll(listCmdAux);}
+                )?
                 {
-                    ComandoCondicao cmd = new ComandoCondicao(_varCondicao, _cmdV, _cmdF);
+                    ComandoCondicao cmd = new ComandoCondicao(_varCondicao, _cmdIf, _cmdElse);
                     listCmdAux.add(cmd);
+
                 };
 
-comandoRepeticao: PCEnqto   { _varExpressao= ""; _varCondicao= "";}
+comandoRepeticao:   { _varExpressao= ""; _varCondicao= "";}
+                    PCEnqto   
                     expressaoRelacional PCEntao comando           
                     {
-                        _cmdV.addAll(listCmdAux); listCmdAux.removeAll(listCmdAux);
-                        ComandoRepeticao cmd = new ComandoRepeticao(_varCondicao, _cmdV);
+                        _cmdRep.addAll(listCmdAux); listCmdAux.removeAll(listCmdAux);
+                        ComandoRepeticao cmd = new ComandoRepeticao(_varCondicao, _cmdRep);
                         listCmdAux.add(cmd);
                     };
 
@@ -174,7 +176,7 @@ OpAritDiv: '/';
 OpAritSoma: '+';
 OpAritSub: '-';
 Atrib: '<<';
-OpRel: '>=' | '<=' | '>' | '<' | '<>' | '==';
+OpRel: '>=' | '<=' | '<>' | '==' | '>' | '<' ;
 OpBoolE: 'and';
 OpBoolOu: 'or';
 PCProg: 'prog';

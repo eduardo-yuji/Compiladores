@@ -1,4 +1,4 @@
-// Generated from GyhRepaginadoLanguage.g4 by ANTLR 4.7.2
+// Generated from .\GyhRepaginadoLanguage.g4 by ANTLR 4.7.2
 
     import java.util.*;
 

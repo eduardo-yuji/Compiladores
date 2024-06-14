@@ -6,7 +6,8 @@ import org.antlr.v4.runtime.Token;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        CharStream fromFileName = CharStreams.fromFileName("programa3.gyh");
+
+        CharStream fromFileName = CharStreams.fromFileName("programa0.gyh");
         GyhRepaginadoLanguageLexer lexer = new GyhRepaginadoLanguageLexer(fromFileName);
         CommonTokenStream token = new CommonTokenStream(lexer);
         GyhRepaginadoLanguageParser parser = new GyhRepaginadoLanguageParser(token);

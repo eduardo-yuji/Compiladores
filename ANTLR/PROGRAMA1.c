@@ -6,18 +6,17 @@
 int main(void){
 	int Parametro; 
 	int Fatorial; 
+	float Teste; 
 	
-	Fatorial = Parametro;
-	if ( Parametro == 0) {
-		Fatorial = 1;
-		Fatorial = Fatorial * Parametro - 1;
+	if ( Parametro < 5 && Parametro > 0) {
 		Parametro = Parametro - 1;
 	}
 	while ( Parametro > 1) {
 		Fatorial = 1;
 		Fatorial = Fatorial * Parametro - 1;
-		Parametro = Parametro - 1;
 	}
+	printf("%d", Fatorial);
+	printf("%f", Teste);
 
 	return 0;
 }

@@ -1,4 +1,4 @@
-// Generated from GyhRepaginadoLanguage.g4 by ANTLR 4.7.2
+// Generated from .\GyhRepaginadoLanguage.g4 by ANTLR 4.7.2
 
     import java.util.*;
 
@@ -104,8 +104,10 @@ public class GyhRepaginadoLanguageLexer extends Lexer {
 	    private String _varExpressao;
 
 	    private String _varCondicao;
-	    private ArrayList<Comando> _cmdV = new ArrayList<Comando>();
-	    private ArrayList<Comando> _cmdF = new ArrayList<Comando>();;
+	    private ArrayList<Comando> _cmdIf = new ArrayList<Comando>();
+	    private ArrayList<Comando> _cmdElse = new ArrayList<Comando>();
+	    private ArrayList<Comando> _cmdRep = new ArrayList<Comando>();
+	    
 
 	    private GeraCodigo prog = new GeraCodigo(); 
 	    private ArrayList<Comando> listCmd = new ArrayList<Comando>(); 
@@ -182,8 +184,8 @@ public class GyhRepaginadoLanguageLexer extends Lexer {
 		"\2=\u00c9\3\2\2\2?@\7_\2\2@\4\3\2\2\2AB\7]\2\2B\6\3\2\2\2CD\7*\2\2D\b"+
 		"\3\2\2\2EF\7+\2\2F\n\3\2\2\2GH\7,\2\2H\f\3\2\2\2IJ\7\61\2\2J\16\3\2\2"+
 		"\2KL\7-\2\2L\20\3\2\2\2MN\7/\2\2N\22\3\2\2\2OP\7>\2\2PQ\7>\2\2Q\24\3\2"+
-		"\2\2RS\7@\2\2S\\\7?\2\2TU\7>\2\2U\\\7?\2\2V\\\t\2\2\2WX\7>\2\2X\\\7@\2"+
-		"\2YZ\7?\2\2Z\\\7?\2\2[R\3\2\2\2[T\3\2\2\2[V\3\2\2\2[W\3\2\2\2[Y\3\2\2"+
+		"\2\2RS\7@\2\2S\\\7?\2\2TU\7>\2\2U\\\7?\2\2VW\7>\2\2W\\\7@\2\2XY\7?\2\2"+
+		"Y\\\7?\2\2Z\\\t\2\2\2[R\3\2\2\2[T\3\2\2\2[V\3\2\2\2[X\3\2\2\2[Z\3\2\2"+
 		"\2\\\26\3\2\2\2]^\7c\2\2^_\7p\2\2_`\7f\2\2`\30\3\2\2\2ab\7q\2\2bc\7t\2"+
 		"\2c\32\3\2\2\2de\7r\2\2ef\7t\2\2fg\7q\2\2gh\7i\2\2h\34\3\2\2\2ij\7f\2"+
 		"\2jk\7g\2\2kl\7e\2\2l\36\3\2\2\2mn\7k\2\2no\7p\2\2op\7v\2\2pq\7g\2\2q"+

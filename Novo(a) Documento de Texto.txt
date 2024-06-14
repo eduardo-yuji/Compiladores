@@ -1,0 +1,112 @@
+1-Durante o processo de projeto de arquitetura, os arquitetos de sistema precisam tomar uma série de decisões estruturais que afetam profundamente o sistema e seu processo de desenvolvimento. Com base em seus conhecimentos e experiência, quais questões fundamentais sobre o sistema eles precisam considerar?
+R: Identificar os principais componentes do sistema e suas comunicações
+
+
+2-O projeto de arquitetura está preocupado com a compreensão de como um sistema deve ser organizado e com a estrutura geral desse sistema. No modelo do processo de desenvolvimento de software, o projeto de arquitetura é o primeiro estágio no processo de projeto de software, é o elo crítico entre o projeto e a engenharia de requisitos, pois identifica os principais componentes estruturais de um sistema e os relacionamentos entre eles. Qual é o resultado do processo de projeto de arquitetura?
+R: A saída desse processo de projeto é uma descrição da arquitetura de software, que serve como guia para o desenvolvimento que vem a seguir.
+
+
+3-Padrão de arquitetura são uma descrição abstrata, estilizada, de boas práticas experimentadas e testadas em diferentes sistemas e ambientes. 
+Considerando isso, descreva o padrão de arquitetura cliente-servidor, incluindo informações de quando o uso desse padrão é adequado, e seus pontos fortes e/ou fracos.
+R: O sistema fica organizado em serviços, cada serviço é prestado por um servidor. Os clientes são os usuários dos serviços. 
+Usado quando os dados em um banco de dados compartilhado precisam ser acessados a partir de uma série de locais.
+Vantagens: Os servidores podem ser distribuidos através de uma rede. 
+Desvantagens: Cada serviço é um ponto único de falha sucetível a ataqques. O desempeho pode ser imprevisivel pois depende da rede.
+
+
+4-Os modelos de arquitetura de um sistema de software podem ser usados para focar a discussão sobre os requisitos de software ou de projeto. Como alternativa, podem ser usados para documentar um projeto para que este possa ser usado como base para um projeto e uma implementação mais detalhados e para a futura evolução do sistema. Neste contexto, responda de forma resumida:
+
+a) Quais notações devem ser usadas para se descrever modelos de arquitetura?
+Cada modelo de arquitetura mostra apenas um ponto de vista ou perspectiva do sistema
+Pode mostrar como um sistema é decomposto em módulos, como os processos interagem em tepo de execução ou as diferentes formas que os componentes do sistema ssão distrbuídos através de uma rede. 
+
+b) Que visões ou perspectivas são úteis ao se projetar e documentar uma arquitetura de sistema?
+Para ambos, projeto e documentação, você geralmente precisa apresentar múltiplas visões da arquitetura de software
+
+
+5-Sobre Arquiteturas de aplicações, existem muitos tipos de sistema de aplicação e, em alguns casos, eles podem parecer muito diferentes uns dos outros. No entanto, muitas dessas aplicações superficialmente diferentes têm, na verdade, muito em comum, e, portanto, podem ser representadas por uma arquitetura abstrata única de aplicação. Existem muitos tipos de sistema de aplicação e, em alguns casos, eles podem parecer muito diferentes uns dos outros. No entanto, muitas dessas aplicações superficialmente diferentes têm, na verdade, muito em comum, e, portanto, podem ser representadas por uma arquitetura abstrata única de aplicação. Descreva as características principais dos dois tipos de aplicação a seguir:
+
+a) Aplicações de processamento de transações.
+R: O usuário faz uma solicitação assincrona do serviço que são processadas por um gerenciador de transações. Por exemplo encontrar os horários de vôos.
+
+b) Sistemas de processamento de linguagens.
+R: Utilizado em situações em que a maneira mais fácil para se resolver um problema é descrever um algoritmo ou descrever os dados do sistema.
+
+
+6) Defina o que é manutenção de software e os seus principais tipos.
+R: Manutenção de software é o processo de melhorias e correções de um software em desenvolvimento ou já desenvolvido. Ou seja, qualquer alteração após o software estar disponível em produção.
+Os tipos são:
+• Manutenção para corrigir defeitos de software
+• Manutenção para adaptar o software a um ambiente operacional diferente.
+• Manutenção para adicionar ou modificar a funcionalidade do sistema
+
+
+7) Sobre padrões de projeto:
+I. Oferecer uma interface simples para uma coleção de classes.
+Correspondem ao padrão de projeto:
+( ) Adapter.
+( ) Composite.
+(X) Façade.
+( ) Bridge.
+
+
+8) Os padrões de projeto denominados GoF (Gang of Four) são divididos em um grande número de tipos. Em função dessa grande quantidade de padrões, foi necessário classificá-los em três famílias/classificações. Assinale a alternativa que as apresenta.
+( ) Padrões de Concepção, Padrões Organizacionais e Padrões Comportamentais
+( ) Padrões de Concepção, Padrões Organizacionais e Padrões Normativos
+( ) Padrões de Criação , Padrões Estruturais e Padrões Normativos
+(X) Padrões de Criação, Padrões Estruturais e Padrões Comportamentais
+
+
+9) Sobre o padrão de projeto singleton o mesmo é utilizado p/ restringir:
+( ) a quantidade de classes
+( ) a instanciação de uma classe para objetos simples.
+( ) as relações entre classes e objetos.
+(X) a instanciação de uma classe para apenas um objeto.
+( ) classes de atributos complexos.
+
+
+10) Sobre o padrão de projeto Adapter (Adaptador em português), assinale a alternativa que aponta a(s) afirmações correta(s).
+I. Adapter não é um padrão de projeto reconhecido.
+II. Normalmente, o padrão adapter aplica-se a qualquer contexto em que queiramos modificar uma classe existente de maneira que seus métodos se adaptem aos de uma classe ou interface relacionada, porém diferente.
+III. A regra geral para aplicar o padrão Adapter é definir a nova classe de maneira que ela contenha uma instância da classe antiga, como um campo escondido, e implemente os métodos da nova classe usando os métodos da varável de instância escondida.
+IV. Adapter garante através de um método público que somente uma instância da classe em questão existirá.
+( ) Apenas I e III.
+( ) Apenas I.
+( ) Apenas II, III e IV.
+(X) Apenas II e III
+( ) I, II, III e IV.
+
+
+11) Sobre o processo de mudança de software, assinale a opção correta.
+( ) A manutenção adaptativa para adaptar o software a mudanças ambientais se refere a mudanças de diversos tipos, como uma nova plataforma de hardware. Mudanças de sistemas operacionais ou software em geral não estão incluídas nessa categoria.
+( ) A manutenção corretiva para reparar defeitos de software diz respeito à mudança em um sistema para corrigir erros, que podem ser somente de codificação. Erros de projeto e de lógica não estão incluídos nessa categoria.
+(X) A manutenção preventiva tem como objetivo detectar e corrigir falhas latentes no produto antes que elas virem falhas efetivas.
+( ) A manutenção perfectiva tem como objetivo tornar o software perfeito, melhorar seu desempenho e sua manutenibilidade ou adicionar-lhe funcionalidade para satisfazer a novos requisitos.
+( ) A manutenção de software é um processo geral de mudanças que ocorre antes ou depois que um sistema é entregue.
+
+
+12) Sobre teste de software considere as afirmações:
+I. Uma estratégia de teste que é escolhida por grande parte das equipes de software adota uma visão incremental do teste, começando com o teste de unidades individuais de programa, avançando para testes projetados a fim de facilitar a integração das unidades e culmina com testes que exercitam o sistema construído.
+II. O teste de unidade focaliza o esforço de verificação na menor unidade de projeto do software - o componente ou módulo de software. Usando a descrição de projeto no nível de componente como guia, caminhos de controle importantes são testados para descobrir erros dentro dos limites do módulo.
+III. O teste de unidade é normalmente considerado um apêndice ao passo de codificação. O projeto de teste de unidade pode ser realizado antes que o código seja iniciado ou depois de o código-fonte ter sido gerado.
+IV. O teste de integração é uma técnica sistemática para construir a arquitetura do software enquanto, ao mesmo tempo, conduz testes para descobrir erros associados às interfaces. O objetivo é, a partir de componentes testados no nível de unidade, construir uma estrutura de programa determinada pelo projeto.
+Assinale a alternativa correta, referente aos itens I, II, III e IV.
+( ) II, III e IV, apenas.
+(X) I, II, III e IV.
+( ) III e IV, apenas.
+( ) I e III, apenas.
+( ) I, II e IV, apenas.
+
+
+13) Sobre teste de software, assinale a alternativa correta abaixo:
+( ) o teste da caixa preta (teste funcional), baseia-se em analisar os arquivos de log do sistema procurando por mensagens de funcionamento inconsistente.
+( ) um teste bem sucedido é um teste que não encontra nenhum erro no software.
+( ) um caso de teste é uma categoria de possíveis resultados na execução de testes.
+( ) o teste de operação é a fase onde é testada a ergonomia da interface de uso do software.
+(X) o teste da caixa branca (teste estrutural), baseia-se em testar as estruturas do código fonte, como comandos condicionais e de repetição.
+
+
+
+
+
+
