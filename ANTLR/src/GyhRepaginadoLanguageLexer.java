@@ -1,6 +1,7 @@
 // Generated from .\GyhRepaginadoLanguage.g4 by ANTLR 4.7.2
 
     import java.util.*;
+    import java.util.Stack;
 
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -108,6 +109,9 @@ public class GyhRepaginadoLanguageLexer extends Lexer {
 	    private ArrayList<Comando> _cmdElse = new ArrayList<Comando>();
 	    private ArrayList<Comando> _cmdRep = new ArrayList<Comando>();
 	    
+	    private Stack<String> _varCondicaoStack = new Stack<>();
+	    private Stack<String> _varExpressaoStack = new Stack<>();
+	    private Stack<ArrayList<Comando>> stack = new Stack<>();
 
 	    private GeraCodigo prog = new GeraCodigo(); 
 	    private ArrayList<Comando> listCmd = new ArrayList<Comando>(); 
