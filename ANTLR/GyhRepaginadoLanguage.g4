@@ -15,6 +15,8 @@ grammar GyhRepaginadoLanguage;
     private String _varExpressao;
 
     private String _varCondicao;
+    private String _varCondicaoRep;
+    private String _varCondicaoCond;
     private ArrayList<Comando> _cmdIf = new ArrayList<Comando>();
     private ArrayList<Comando> _cmdElse = new ArrayList<Comando>();
     private ArrayList<Comando> _cmdRep = new ArrayList<Comando>();
@@ -44,7 +46,7 @@ grammar GyhRepaginadoLanguage;
 //------------------------------------------------Gramatica------------------------------------------------
 
 programa: IniDelim PCDec FimDelim listaDeclaracoes IniDelim PCProg FimDelim listaComandos 
-    { 
+    {
         prog.setTabela(_tabelaSimbolo);
         prog.setComando(listCmd);
         prog.geradorCodigo();
@@ -114,14 +116,13 @@ comandoAtribuicao:  Var             {_nomeVar = (_input.LT(-1).getText());
                                         _expVar = _input.LT(-1).getText();}
                                     }
                 Atrib               {_varExpressao = "";}
-                expressaoAritmetica {ComandoAtribuicao cmd = new ComandoAtribuicao(_expVar, _varExpressao); listCmdAux.add(cmd);};
+                expressaoAritmetica {ComandoAtribuicao cmd = new ComandoAtribuicao(_expVar, _varExpressao, _tabelaSimbolo); listCmdAux.add(cmd);};
 
 comandoEntrada: PCLer Var
             {
                 if (!_tabelaSimbolo.exists(_input.LT(-1).getText())) {
                     System.out.println("Erro semântico >> variável não declarada: " + _input.LT(-1).getText());
                 } else {
-                    String _tipo ="";
                     ComandoLeitura cmd = new ComandoLeitura();
                     cmd.setId(_input.LT(-1).getText());
                     cmd.setTipo(_tabelaSimbolo);
@@ -145,22 +146,24 @@ comandoSaida: PCImprimir    {ComandoEscrita cmd = new ComandoEscrita();}
                             }
                             {listCmdAux.add(cmd);};
 
-comandoCondicao:                    {_varExpressao= ""; _varCondicao= "";}
-                PCSe                { _varExpressaoStack.push(_varExpressao); _varCondicaoStack.push(_varCondicao);}
-                expressaoRelacional { _varExpressao += _varExpressaoStack.pop(); _varCondicao += _varCondicaoStack.pop();}
+comandoCondicao:                    {_varExpressao="";_varCondicao="";}
+                PCSe                
+                expressaoRelacional { _varCondicaoStack.push(_varCondicao);}
                 PCEntao             { stack.push(listCmdAux); listCmdAux = new ArrayList<Comando>();}
                 comando             { _cmdIf = listCmdAux; listCmdAux = stack.pop();}
                 (PCSenao            { stack.push(listCmdAux); listCmdAux = new ArrayList<Comando>();}
                 comando             { _cmdElse = listCmdAux; listCmdAux = stack.pop();}
-                )?                  { ComandoCondicao cmd = new ComandoCondicao(_varCondicao, _cmdIf, _cmdElse);
+                )?                  { _varCondicaoCond = _varCondicaoStack.pop();
+                                     ComandoCondicao cmd = new ComandoCondicao(_varCondicaoCond, _cmdIf, _cmdElse);
                                         listCmdAux.add(cmd);};
 
-comandoRepeticao:                       { _varExpressao= ""; _varCondicao= "";}
-                    PCEnqto             { _varExpressaoStack.push(_varExpressao); _varCondicaoStack.push(_varCondicao);}
-                    expressaoRelacional { _varExpressao += _varExpressaoStack.pop(); _varCondicao += _varCondicaoStack.pop();}
+comandoRepeticao:                       {_varExpressao="";_varCondicao="";}
+                    PCEnqto             
+                    expressaoRelacional { _varCondicaoStack.push(_varCondicao);}
                     PCEntao             {stack.push(listCmdAux); listCmdAux = new ArrayList<Comando>();}
-                    comando             {_cmdRep = listCmdAux; listCmdAux = stack.pop();
-                                            ComandoRepeticao cmd = new ComandoRepeticao(_varCondicao, _cmdRep); listCmdAux.add(cmd);};
+                    comando             { _varCondicaoRep = _varCondicaoStack.pop();
+                                        _cmdRep = listCmdAux; listCmdAux = stack.pop();
+                                        ComandoRepeticao cmd = new ComandoRepeticao(_varCondicaoRep, _cmdRep); listCmdAux.add(cmd);};
 
 subAlgoritmo: PCIni comando+ PCFim ;
 
@@ -197,5 +200,5 @@ Cadeia: '"' ( [0-9] | [a-z] | [A-Z] | OpRel | Atrib )* '"';
 NumInt: [0-9]+;
 NumReal: [0-9]+ '.' [0-9]+;
 
-WS: (' ' | '\n' | '\t') -> skip;
+WS: (' ' | '\n' | '\t' | '\r') -> skip;
 Comentario: '#' ~('\n')* -> skip;

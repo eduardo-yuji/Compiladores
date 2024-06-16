@@ -44,4 +44,7 @@ public class ComandoCondicao extends Comando {
         return str.toString();
     }
 
+    public String toString() {
+        return "ComandoCondicao{expressaoRelacional='" + expressaoRelacional + "', comandosVerdadeiros=" + comandosVerdadeiros + ", comandosFalsos=" + comandosFalsos + "}";
+    }
 }

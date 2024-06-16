@@ -2,6 +2,7 @@ public class ComandoLeitura extends Comando {
     private String id;
     private TabelaSimbolo tipo;
     private String aux;
+    
     public String getId() {return id;}
 
     public void setId(String id) {this.id = id;}
@@ -23,5 +24,8 @@ public class ComandoLeitura extends Comando {
             }
         }
         return "";
+    }
+    public String toString() {
+        return "ComandoLeitura{id='" + id + "', tipo=" + tipo + "}";
     }
 }

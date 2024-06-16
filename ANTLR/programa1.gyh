@@ -1,0 +1,17 @@
+#Erro Léxico: <iNteger, linha: 6> nao eh Palavra Chave
+
+[dec]
+Parametro [integer]
+Parametro2 [iNteger]
+
+[prog]
+read Parametro
+Parametro << Parametro 2
+if Parametro == 0 then Parametro2 << 1
+while Parametro > 1 then
+    start
+        Parametro << 1
+        Parametro << Parametro + 1
+    end
+print "------>"
+print Parametro2

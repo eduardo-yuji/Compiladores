@@ -49,7 +49,7 @@ public class GeraCodigo {
         str.append("\n\treturn 0;\n}");
 
         try {
-            FileWriter file = new FileWriter(new File("PROGRAMA1.c"));
+            FileWriter file = new FileWriter(new File("ProgramaSaida.c"));
             file.write(str.toString());
             file.close();
         } catch (IOException e) {

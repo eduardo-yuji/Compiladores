@@ -22,14 +22,16 @@ public class ComandoEscrita extends Comando {
                 for(Simbolo simbolo : tabela.getAll()){
                     aux = simbolo.getNome().toString();
                     if(simbolo.getTipo().equals("float") && texto.equals(aux)){
-                        return "printf(\"%f\", " + texto + ");";
+                        return "printf(\"%f\\n\", " + texto + ");";
                     }else if(simbolo.getTipo().equals("integer") && texto.equals(aux)){
-                        return "printf(\"%d\", " + texto + ");";
+                        return "printf(\"%d\\n\", " + texto + ");";
                     }
                 }
             }
         }
         return "";
     }
-
+    public String toString() {
+        return "ComandoEscrita{texto='" + texto + "', tabela=" + tabela + "}";
+    }
 }

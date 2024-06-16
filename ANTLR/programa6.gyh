@@ -1,0 +1,18 @@
+#Erro Semantico linha 6, redeclaracao de variavel
+
+[dec]
+Parametro [integer]
+Fatorial[integer]
+Fatorial [float]
+
+[prog]
+# Calcula o fatorial de um número inteiro
+Parametro << 2
+Fatorial << 0
+if Parametro < 0 then
+    while Fatorial < 10 then
+        Fatorial << Fatorial + 1
+else
+    Fatorial << Fatorial - 1
+print Parametro
+print Fatorial

@@ -1,0 +1,20 @@
+#Sem erros
+
+[dec]
+Parametro [integer]
+Fatorial[integer]
+Teste[float]
+
+[prog]
+# Calcula o fatorial de um número inteiro
+Parametro << 2
+Fatorial << 0
+Teste << 0
+if Parametro < 0 then
+    while Fatorial < 10 then
+        Fatorial << Fatorial + 1
+else
+    Fatorial << Fatorial - 1
+print Parametro
+print Fatorial
+print Teste

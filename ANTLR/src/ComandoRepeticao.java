@@ -27,5 +27,7 @@ public class ComandoRepeticao extends Comando {
         str.append("\n\t}"); // Fim do bloco do while
         return str.toString();
     }
-
+    public String toString() {
+        return "ComandoRepeticao{expressaoRelacional='" + expressaoRelacional + "', comandos=" + comandos + "}";
+    }
 }
